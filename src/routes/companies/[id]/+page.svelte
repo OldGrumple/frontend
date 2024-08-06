@@ -96,7 +96,7 @@
     }
   </script>
   
-  <div class="pt-20">
+  <div class="pt-10">
     {#if loading}
       <p class="text-gray-600 dark:text-gray-400">Loading company details...</p>
     {:else if error}

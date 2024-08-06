@@ -7,4 +7,5 @@ export default {
   plugins: [
     require('preline/plugin'),
   ],
+  darkMode: 'class',
 }
