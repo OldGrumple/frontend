@@ -1,27 +1,16 @@
-FROM node:20.16.0-apline AS builder
-
-WORKDIR /.
-
-COPY package*.json .
-COPY pnpm-lock.yaml .
-
-RUN npm i -g pnpm
-RUN pnpm install
-
+# Use Node.js as the base image
+FROM node:18-alpine
+# Set the working directory in the container
+WORKDIR /app
+# Copy package.json and package-lock.json (if available)
+COPY package*.json ./
+# Install dependencies
+RUN npm ci
+# Copy the rest of your app's source code
 COPY . .
-
-RUN pnpm run build
-RUN pnpm prune --prod
-
-FROM node:20.16.0-apline AS deployer
-
-WORKDIR /.
-
-COPY --from=builder /build build
-COPY --from=builder /package.json
-
+# Build the app
+RUN npm run build
+# Expose the port the app runs on
 EXPOSE 3000
-
-ENV NODE_ENV=PRODUCTION
-
-CMD [ "node", "build" ]
+# Start the app
+CMD ["node", "build"]
