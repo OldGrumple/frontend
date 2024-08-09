@@ -7,13 +7,15 @@
     let error = null;
     let loading = false;
   
+  
     async function handleSubmit() {
+      event.preventDefault();
       error = null;
       loading = true;
   
       try {
         await signIn(email, password);
-        goto('/');
+        goto('/companies');
       } catch (e) {
         error = e.message;
       } finally {
@@ -31,7 +33,7 @@
               <h1 class="block text-2xl font-bold text-gray-800 dark:text-white">Sign in</h1>
               <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">
                 Don't have an account yet?
-                <a class="text-blue-600 decoration-2 hover:underline font-medium" href="/create-account">
+                <a class="text-blue-600 decoration-2 hover:underline font-medium" href="/sign-up">
                   Sign up here
                 </a>
               </p>
